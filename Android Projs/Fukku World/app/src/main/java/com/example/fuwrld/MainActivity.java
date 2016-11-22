@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         mNotAButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch
+                switch (mAmAngry.getSwitchPadding())
             }
         });
 
