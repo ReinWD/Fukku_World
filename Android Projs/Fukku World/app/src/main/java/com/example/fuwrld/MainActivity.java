@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         mNotAButton = (Button) findViewById(R.id.NotAButton);
         mAmAngry = (Switch) findViewById(R.id.ImAngry);
         mNotAButton.setOnClickListener(new View.OnClickListener() {
