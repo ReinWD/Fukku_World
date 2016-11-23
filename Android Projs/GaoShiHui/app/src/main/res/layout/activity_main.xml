@@ -13,12 +13,22 @@
     android:background="@color/colorBackground">
 
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/enter"
+        android:id="@+id/main_enter"
+        android:background="@color/mNull"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="90dp" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/Gaoshihui"
+        app:srcCompat="@drawable/gaoshihui"
         android:id="@+id/imageView2"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="79dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
