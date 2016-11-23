@@ -37,10 +37,14 @@
     <TextView
         android:text="@string/TextView_null"
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
+        tools:text="@string/TextView_null"
+        android:layout_width="200px"
+        android:layout_marginBottom="50dp"
         android:layout_above="@+id/ImAngry"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:fontFamily="sans-serif" />
 
 </RelativeLayout>

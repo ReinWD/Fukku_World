@@ -9,26 +9,47 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
+
+import static com.example.fuwrld.R.string.TextView_Angry;
+import static com.example.fuwrld.R.string.TextView_notAngry;
+
 
 public class MainActivity extends AppCompatActivity {
     private Button mNotAButton;
     private Switch mAmAngry;
+    private TextView mOut;
+    private boolean mAngry = false;
+    private boolean mIfOut = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         mNotAButton = (Button) findViewById(R.id.NotAButton);
         mAmAngry = (Switch) findViewById(R.id.ImAngry);
+        mOut = (TextView) findViewById(R.id.textView);
+        mAmAngry.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mAngry = true;
+                } else {
+                    mAngry = false;
+                }
+            }
+        });
         mNotAButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (mAmAngry.getSwitchPadding())
+                if (mAngry) mOut.setText(TextView_Angry);
+                else mOut.setText(TextView_notAngry);
             }
         });
 
@@ -36,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
             }
         });
+
+
     }
 
     @Override
