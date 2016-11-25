@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_sign_in"
     android:layout_width="match_parent"
@@ -10,6 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.gaoshihui.SignInActivity"
     android:background="@color/colorBackground">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -18,20 +20,38 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
-        <EditText
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/login_account"
-            android:layout_margin="10dp"
-            android:hint="@string/login_hint_email" />
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="263dp"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/sign_in_account"
+                android:layout_margin="10dp"
+                android:hint="@string/login_hint_email" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/expecting"
+                    android:id="@+id/sign_in_if_repeat" />
+            </GridLayout>
+        </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:id="@+id/login_password"
+            android:id="@+id/sign_in_password"
             android:layout_margin="10dp"
             android:hint="@string/login_hint_password"
             android:fontFamily="sans-serif"
@@ -47,18 +67,17 @@
             android:paddingLeft="1dp"
             android:paddingRight="1dp">
 
-            <Button
-                android:text="@string/login_button_sign_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/login_button_sign_in"
-                android:layout_weight="1" />
+            <GridLayout
+                android:layout_width="177dp"
+                android:layout_height="match_parent">
+
+            </GridLayout>
 
             <Button
-                android:text="@string/login_button_login"
+                android:text="@string/sign_in_button_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/login_button_login"
+                android:id="@+id/sign_in_button_sign_in"
                 android:layout_weight="1" />
 
         </LinearLayout>

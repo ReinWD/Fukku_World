@@ -1,12 +1,16 @@
 package com.example.gaoshihui;
 
+
 import android.app.Activity;
+import android.support.v4.app.NavUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
 /**
@@ -14,55 +18,89 @@ import java.util.HashMap;
  */
 
 public class AccountManager extends Activity {
-    public int userCounts = 0;
-    private final String PATH_ACCOUNT =null ;
-    private final String PATH_PASSWORD =null ;
-    public HashMap<String, Integer> accountNum;
+    File mAccount,mPassword;
+    public int userCounts = 1;
+//    private final String PATH_ACCOUNT =  new MainActivity().PATH+"/app/libs/Account";
+//    private final String PATH_PASSWORD = new MainActivity().PATH+"/app/libs/Password";
+    private final String ACCOUNT="Account.txt";
+    private final String PASSWORD="Password.txt";
+    public HashMap<String, Integer> accountNum = new HashMap<>();
 
-    private File mAccount  = new File(PATH_ACCOUNT , "Account" );
-    private File mPassword = new File(PATH_PASSWORD, "Password");
+//    private File mAccount = new File(PATH_ACCOUNT,"Account.txt");
+//    private File mPassword = new File(PATH_PASSWORD,"Password.txt");
 
-    public void signIn(String account, String password) throws IOException, AlreadyExistException {
-        userCounts++;
-        if (accountNum.get(account) != null) {
+    AccountManager() {
+    }
+
+
+    public void signIn(String account, String password) throws IOException {
+        try {
+            accountNum.get(account).toString();
+        } catch (NullPointerException e) {
             accountNum.put(account, userCounts);
             fileSaver(account, password);
-
-        } else {
-            throw new AlreadyExistException();
+            userCounts++;
         }
     }
 
-    public boolean logIn(String account, String password) throws NotExistException, IOException {
+
+    public boolean logIn(String account, String password) throws NullPointerException, NotExistException, IOException {
         int num = accountNum.get(account);
         if (accountNum.get(account).equals(null))
             throw new NotExistException();
-        FileReader me = new FileReader(mPassword);
-        BufferedReader a = new BufferedReader(me);
+        InputStream me =this.openFileInput(PASSWORD);
+        InputStreamReader a = new InputStreamReader(me);
+        BufferedReader b = new BufferedReader(a);
         for (int i = 0; i < num - 1; i++) {
-            a.readLine();
+            b.readLine();
         }
-        if (a.readLine().equals(password)) return true;
+        if (b.readLine().equals(password)) return true;
         else return false;
     }
 
-    public void fileSaver(String account, String password) throws IOException {
+    public void fileSaver(String account, String password) {
 
+        try {
+            createFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileOutputStream fileOutPut=null;
+        OutputStreamWriter HarukiMurakami;
+//        try {
+//            mPassword.createNewFile();
+//            mAccount.createNewFile();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        try {
+            try {
+                fileOutPut = this.openFileOutput(ACCOUNT, this.MODE_PRIVATE);
+            }catch (Exception e){
+
+            }
+            HarukiMurakami =new OutputStreamWriter(fileOutPut);
+            HarukiMurakami.write(account + "\n");
+            HarukiMurakami.close();
+
+            fileOutPut =this.openFileOutput(PASSWORD,this.MODE_PRIVATE);
+            HarukiMurakami = new OutputStreamWriter(fileOutPut);
+            HarukiMurakami.write(password + "\n");
+            HarukiMurakami.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void createFile() throws IOException {
+        String a =getFilesDir().getPath();
+        mAccount=new File(a,"Account.txt");
         mAccount.createNewFile();
+        mPassword=new File(a,"Password.txt");
         mPassword.createNewFile();
-
-        FileWriter HarukiMurakami = new FileWriter(mAccount);
-        HarukiMurakami.write(account + "\n");
-        HarukiMurakami.close();
-        HarukiMurakami = new FileWriter(mPassword);
-        HarukiMurakami.write(password + "\n");
-        HarukiMurakami.close();
     }
 
     public class NotExistException extends Exception {
     }
 
-    public class AlreadyExistException extends Exception {
-    }
 }
 
