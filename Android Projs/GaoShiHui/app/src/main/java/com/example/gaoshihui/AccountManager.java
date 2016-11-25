@@ -24,7 +24,7 @@ public class AccountManager extends Activity {
 //    private final String PATH_PASSWORD = new MainActivity().PATH+"/app/libs/Password";
     private final String ACCOUNT="Account.txt";
     private final String PASSWORD="Password.txt";
-    public HashMap<String, Integer> accountNum = new HashMap<>();
+    public HashMap<String, String> accountNum = new HashMap<>();
 
 //    private File mAccount = new File(PATH_ACCOUNT,"Account.txt");
 //    private File mPassword = new File(PATH_PASSWORD,"Password.txt");
@@ -34,18 +34,18 @@ public class AccountManager extends Activity {
 
 
     public void signIn(String account, String password) throws IOException {
-        try {
-            accountNum.get(account).toString();
-        } catch (NullPointerException e) {
-            accountNum.put(account, userCounts);
+        if( accountNum.get(account)==null){
+            accountNum.put(account,String.valueOf(userCounts) );
             fileSaver(account, password);
             userCounts++;
+        }else {
+
         }
     }
 
 
     public boolean logIn(String account, String password) throws NullPointerException, NotExistException, IOException {
-        int num = accountNum.get(account);
+        int num = Integer.valueOf(accountNum.get(account));
         if (accountNum.get(account).equals(null))
             throw new NotExistException();
         InputStream me =this.openFileInput(PASSWORD);

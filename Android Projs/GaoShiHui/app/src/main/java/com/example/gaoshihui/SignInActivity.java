@@ -42,14 +42,12 @@ public class SignInActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(s.toString().equals(""))mCheckRepeat.setImageResource(R.drawable.angry);
                 else {
-                    try {
-                        mManager.accountNum.get(mEditTextEmail.getText().toString()).equals("");
-                        mCheckRepeat.setImageResource(R.drawable.angry);
-                    } catch (NullPointerException e) {
-                        mCheckRepeat.setImageResource(R.drawable.hilarious);
+                    if(mManager.accountNum.get(mEditTextEmail.getText().toString())==null)mCheckRepeat.setImageResource(R.drawable.hilarious);
+                        else mCheckRepeat.setImageResource(R.drawable.angry);
+
                     }
                 }
-            }
+
         });
         mButtonSignIn=(Button)findViewById(R.id.sign_in_button_sign_in) ;
         mButtonSignIn.setOnClickListener(new View.OnClickListener() {
