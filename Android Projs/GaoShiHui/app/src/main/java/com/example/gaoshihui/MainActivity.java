@@ -1,5 +1,6 @@
 package com.example.gaoshihui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Path;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,7 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static AccountManager mManager = new AccountManager();
-
+    public static AccountManager mManager = new AccountManager() ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

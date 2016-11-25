@@ -1,6 +1,7 @@
 package com.example.gaoshihui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,7 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        final Context context=this.getApplicationContext();
 
 
         mEditTextEmail = (EditText) findViewById(R.id.login_account);
@@ -34,7 +36,7 @@ public class LoginActivity extends Activity {
                     return;
                 }else {
                     try {
-                        if (MainActivity.mManager.logIn(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString()))
+                        if (MainActivity.mManager.logIn(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString(),context))
                             LoginActivity.this.finish();
                         else ;
 

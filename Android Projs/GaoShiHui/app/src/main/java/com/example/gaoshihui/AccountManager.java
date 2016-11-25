@@ -2,11 +2,14 @@ package com.example.gaoshihui;
 
 
 import android.app.Activity;
-import android.support.v4.app.NavUtils;
+import android.content.Context;
+
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,7 +20,8 @@ import java.util.HashMap;
  * Created by 张巍 on 2016/11/24.
  */
 
-public class AccountManager extends Activity {
+public  class AccountManager extends Activity {
+
     File mAccount,mPassword;
     public int userCounts = 1;
 //    private final String PATH_ACCOUNT =  new MainActivity().PATH+"/app/libs/Account";
@@ -33,10 +37,10 @@ public class AccountManager extends Activity {
     }
 
 
-    public void signIn(String account, String password) throws IOException {
+    public void signIn(String account, String password,Context context) throws IOException {
         if( accountNum.get(account)==null){
             accountNum.put(account,String.valueOf(userCounts) );
-            fileSaver(account, password);
+            fileSaver(account, password,context);
             userCounts++;
         }else {
 
@@ -44,28 +48,25 @@ public class AccountManager extends Activity {
     }
 
 
-    public boolean logIn(String account, String password) throws NullPointerException, NotExistException, IOException {
-        int num = Integer.valueOf(accountNum.get(account));
-        if (accountNum.get(account).equals(null))
+    public boolean logIn(String account, String password,Context context) throws NullPointerException, NotExistException, IOException {
+        if (accountNum.get(account)==null)
             throw new NotExistException();
-        InputStream me =this.openFileInput(PASSWORD);
-        InputStreamReader a = new InputStreamReader(me);
+        int num = Integer.valueOf(accountNum.get(account));
+        InputStreamReader a = new InputStreamReader(new FileInputStream(mPassword));
         BufferedReader b = new BufferedReader(a);
         for (int i = 0; i < num - 1; i++) {
             b.readLine();
         }
-        if (b.readLine().equals(password)) return true;
-        else return false;
+        return b.readLine().equals(password);
     }
 
-    public void fileSaver(String account, String password) {
+    public void fileSaver(String account, String password,Context context) {
 
         try {
-            createFile();
+            createFile(context);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        FileOutputStream fileOutPut=null;
         OutputStreamWriter HarukiMurakami;
 //        try {
 //            mPassword.createNewFile();
@@ -74,28 +75,23 @@ public class AccountManager extends Activity {
 //            e.printStackTrace();
 //        }
         try {
-            try {
-                fileOutPut = this.openFileOutput(ACCOUNT, this.MODE_PRIVATE);
-            }catch (Exception e){
-
-            }
-            HarukiMurakami =new OutputStreamWriter(fileOutPut);
+            HarukiMurakami =new FileWriter(mAccount);
             HarukiMurakami.write(account + "\n");
             HarukiMurakami.close();
 
-            fileOutPut =this.openFileOutput(PASSWORD,this.MODE_PRIVATE);
-            HarukiMurakami = new OutputStreamWriter(fileOutPut);
+            HarukiMurakami = new FileWriter(mPassword);
             HarukiMurakami.write(password + "\n");
             HarukiMurakami.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void createFile() throws IOException {
-        String a =getFilesDir().getPath();
-        mAccount=new File(a,"Account.txt");
+    public void createFile(Context context) throws IOException {
+        String b =context.getFilesDir().getPath()+"libs/";
+        new File(b).mkdirs() ;
+        mAccount=new File(b,ACCOUNT);
         mAccount.createNewFile();
-        mPassword=new File(a,"Password.txt");
+        mPassword=new File(b,PASSWORD);
         mPassword.createNewFile();
     }
 

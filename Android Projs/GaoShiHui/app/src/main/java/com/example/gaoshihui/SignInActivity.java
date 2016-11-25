@@ -1,6 +1,7 @@
 package com.example.gaoshihui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import static com.example.gaoshihui.MainActivity.mManager;
 
 public class SignInActivity extends AppCompatActivity {
+
      Button mButtonSignIn;
      EditText mEditTextEmail, mEditTextPassword;
      ImageView mCheckRepeat;
@@ -20,6 +22,7 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final Context context = this.getApplicationContext();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
@@ -54,7 +57,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    mManager.signIn(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString());
+                    mManager.signIn(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString(),context);
                     SignInActivity.this.finish();
             }catch (Exception e){}
         }});
