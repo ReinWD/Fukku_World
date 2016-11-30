@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class LoginActivity extends Activity {
+import static com.example.gaoshihui.MainActivity.mManager;
+
+public class LoginActivity extends AppCompatActivity {
     //declare
     Button mButtonLogin, mButtonSignIn;
     EditText mEditTextEmail, mEditTextPassword;
@@ -19,6 +22,7 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.getSharedPreferences("s" ,1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         final Context context=this.getApplicationContext();
@@ -36,7 +40,7 @@ public class LoginActivity extends Activity {
                     return;
                 }else {
                     try {
-                        if (MainActivity.mManager.logIn(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString(),context))
+                        if (mManager.logIn(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString(),context))
                             LoginActivity.this.finish();
                         else ;
 
@@ -60,9 +64,7 @@ public class LoginActivity extends Activity {
         String a=mEditTextEmail.getText().toString();
         String b=mEditTextPassword.getText().toString();
 
-        if (a.equals("")||b.equals(""))
-            return true;
-        else return false;
+        return a.equals("") || b.equals("");
     }
 
 }
